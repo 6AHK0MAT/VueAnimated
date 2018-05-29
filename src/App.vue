@@ -1,39 +1,13 @@
 <template>
   <div class="container text-center pt-5">
-    <button class="btn btn-primary mb-5" @click="show = !show">Toggle</button>
+    <button class="btn btn-success" @click="add">Add</button>
+    <button class="btn btn-danger" @click="remove">Remove</button>
 
-    <!--<transition-->
-      <!--name="ma"-->
-      <!--:duration="{enter: 1500, leave: 200}"-->
-      <!--appear-->
-    <!--&gt;-->
-      <!--<p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</p>-->
-    <!--</transition>-->
-    <!--<transition-->
-      <!--enter-active-class="animated wobble"-->
-      <!--leave-active-class="animated shake"-->
-    <!--&gt;-->
-      <!--<p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, obcaecati.</p>-->
-    <!--</transition>-->
+    <hr>
 
-    <!--<transition name="ma" mode="in-out">-->
-        <!--<div class="alert alert-success" v-if="show" key="success">Success</div>-->
-        <!--<div class="alert alert-danger" v-else key="danger">Danger</div>-->
-    <!--</transition>-->
-
-    <transition
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @after-enter="afterEnter"
-      @enter-cancelled="enterCancelled"
-
-      @before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
-      @leave-cancelled="leaveCancelled"
-    >
-      <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, reiciendis.</p>
-    </transition>
+    <transition-group class="list-group width300" tag="ul" name="ma">
+      <li class="list-group-item" v-for="item of items" :key="item">{{item}}</li>
+    </transition-group>
   </div>
 </template>
 
@@ -41,67 +15,36 @@
   export default {
     data () {
       return {
-        show: true
+        items: [1, 2, 3, 4, 5],
+        nextNum: 6
       }
     },
     methods: {
-      beforeEnter(el) {
-        console.log('beforeEnter')
+      getIndex () {
+        return Math.floor(Math.random() * this.items.length)
       },
-      enter(el, done) {
-        console.log('enter')
-        // done()
+      add () {
+        this.items.splice(this.getIndex(), 0, this.nextNum++)
       },
-      afterEnter(el) {
-        console.log('afterEnter')
-      },
-      enterCancelled(el) {
-        console.log('enterCancelled')
-      },
-      beforeLeave(el) {
-        console.log('beforeLeave')
-      },
-      leave(el, done) {
-        console.log('leave')
-        // done()
-      },
-      afterLeave(el) {
-        console.log('afterLeave')
-      },
-      leaveCancelled(el) {
-        console.log('leaveCancelled')
+      remove () {
+        this.items.splice(this.getIndex(), 1)
       }
     }
   }
 </script>
 
 <style>
-
-  .ma-enter {
-    opacity: 0;
-  }
-  .ma-enter-active {
-    transition: opacity 1s;
-  }
-  .ma-enter-to {}
-
-  .ma-leave {}
-  .ma-leave-active {
-    animation: 1s ma-slide forwards;
-    transition: opacity 1s;
-  }
-  .ma-leave-to {
-    opacity: 0;
+  .width300 {
+    width: 300px;
+    margin: 0 auto;
   }
 
-  @keyframes ma-slide {
-    from {
-      transform: translateX(0px);
-    }
-    to {
-      transform: translateX(-100px);
-    }
+  .ma-enter-active, .ma-leave-active {
+    transition: 1s all;
   }
 
+  .ma-enter, .ma-leave-to {
+    transform: translateX(-100px);
+  }
 
 </style>
