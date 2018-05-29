@@ -16,9 +16,23 @@
       <!--<p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, obcaecati.</p>-->
     <!--</transition>-->
 
-    <transition name="ma" mode="in-out">
-        <div class="alert alert-success" v-if="show" key="success">Success</div>
-        <div class="alert alert-danger" v-else key="danger">Danger</div>
+    <!--<transition name="ma" mode="in-out">-->
+        <!--<div class="alert alert-success" v-if="show" key="success">Success</div>-->
+        <!--<div class="alert alert-danger" v-else key="danger">Danger</div>-->
+    <!--</transition>-->
+
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @enter-cancelled="enterCancelled"
+
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      @leave-cancelled="leaveCancelled"
+    >
+      <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, reiciendis.</p>
     </transition>
   </div>
 </template>
@@ -28,6 +42,34 @@
     data () {
       return {
         show: true
+      }
+    },
+    methods: {
+      beforeEnter(el) {
+        console.log('beforeEnter')
+      },
+      enter(el, done) {
+        console.log('enter')
+        // done()
+      },
+      afterEnter(el) {
+        console.log('afterEnter')
+      },
+      enterCancelled(el) {
+        console.log('enterCancelled')
+      },
+      beforeLeave(el) {
+        console.log('beforeLeave')
+      },
+      leave(el, done) {
+        console.log('leave')
+        // done()
+      },
+      afterLeave(el) {
+        console.log('afterLeave')
+      },
+      leaveCancelled(el) {
+        console.log('leaveCancelled')
       }
     }
   }
