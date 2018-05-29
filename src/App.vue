@@ -9,11 +9,16 @@
     <!--&gt;-->
       <!--<p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</p>-->
     <!--</transition>-->
-    <transition
-      enter-active-class="animated wobble"
-      leave-active-class="animated shake"
-    >
-      <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, obcaecati.</p>
+    <!--<transition-->
+      <!--enter-active-class="animated wobble"-->
+      <!--leave-active-class="animated shake"-->
+    <!--&gt;-->
+      <!--<p v-if="show">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, obcaecati.</p>-->
+    <!--</transition>-->
+
+    <transition name="ma" mode="in-out">
+        <div class="alert alert-success" v-if="show" key="success">Success</div>
+        <div class="alert alert-danger" v-else key="danger">Danger</div>
     </transition>
   </div>
 </template>
@@ -22,7 +27,7 @@
   export default {
     data () {
       return {
-        show: false
+        show: true
       }
     }
   }
@@ -41,7 +46,7 @@
   .ma-leave {}
   .ma-leave-active {
     animation: 1s ma-slide forwards;
-    transition: opacity 3s;
+    transition: opacity 1s;
   }
   .ma-leave-to {
     opacity: 0;
